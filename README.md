@@ -1,23 +1,22 @@
-fauria/lamp
+wcramos/lamp
 ==========
 
-![docker_logo](https://raw.githubusercontent.com/fauria/docker-lamp/master/docker_139x115.png)![docker_fauria_logo](https://raw.githubusercontent.com/fauria/docker-lamp/master/docker_fauria_161x115.png)
+![docker_logo](https://raw.githubusercontent.com/wcramos/docker-lamp/master/docker_139x115.png)
 
-[![Docker Pulls](https://img.shields.io/docker/pulls/fauria/lamp.svg?style=plastic)](https://hub.docker.com/r/fauria/lamp/)
-[![Docker Build Status](https://img.shields.io/docker/build/fauria/lamp.svg?style=plastic)](https://hub.docker.com/r/fauria/lamp/builds/)
-[![](https://images.microbadger.com/badges/image/fauria/lamp.svg)](https://microbadger.com/images/fauria/lamp "fauria/lamp")
+[![Docker Pulls](https://img.shields.io/docker/pulls/wcramos/lamp.svg?style=plastic)](https://hub.docker.com/r/wcramos/lamp/)
+[![Docker Build Status](https://img.shields.io/docker/build/wcramos/lamp.svg?style=plastic)](https://hub.docker.com/r/wcramos/lamp/builds/)
+[![](https://images.microbadger.com/badges/image/wcramos/lamp.svg)](https://microbadger.com/images/wcramos/lamp "wcramos/lamp")
 
-This Docker container implements a last generation LAMP stack with a set of popular PHP modules. Includes support for [Composer](https://getcomposer.org/), [Bower](http://bower.io/) and [npm](https://www.npmjs.com/) package managers and a Postfix service to allow sending emails through PHP [mail()](http://php.net/manual/en/function.mail.php) function.
+This Docker container implements a last generation LAMP stack with a set of popular PHP modules. Includes support for [Composer](https://getcomposer.org/), [Yarn](https://yarnpkg.com/en/) and [npm](https://www.npmjs.com/) package managers.
 
 If you dont need support for MySQL/MariaDB, or your app runs on PHP 5.4, maybe [fauria/lap](https://hub.docker.com/r/fauria/lap) suits your needs better.
 
 Includes the following components:
 
- * Ubuntu 16.04 LTS Xenial Xerus base image.
+ * Ubuntu 18.10 LTS base image.
  * Apache HTTP Server 2.4
- * MariaDB 10.0
- * Postfix 2.11
- * PHP 7
+ * MySQL 5.7
+ * PHP 7.2
  * PHP modules
  	* php-bz2
 	* php-cgi
@@ -35,7 +34,6 @@ Includes the following components:
 	* php-intl
 	* php-json
 	* php-ldap
-	* php-mcrypt
 	* php-mysql
 	* php-odbc
 	* php-opcache
@@ -54,20 +52,20 @@ Includes the following components:
 	* git
 	* composer
 	* npm / nodejs
-	* bower
+	* yarn
 	* vim
 	* tree
 	* nano
 	* ftp
 	* curl
 
-Installation from [Docker registry hub](https://registry.hub.docker.com/u/fauria/lamp/).
+Installation from [Docker registry hub](https://registry.hub.docker.com/u/wcramos/lamp/).
 ----
 
 You can download the image using the following command:
 
 ```bash
-docker pull fauria/lamp
+docker pull wcramos/lamp
 ```
 
 Environment variables
@@ -121,10 +119,10 @@ Exposed port and volumes
 
 The image exposes ports `80` and `3306`, and exports four volumes:
 
-* `/var/log/httpd`, containing Apache log files.
+* `/var/log/apache2`, containing Apache log files.
 * `/var/log/mysql` containing MariaDB log files.
 * `/var/www/html`, used as Apache's [DocumentRoot directory](http://httpd.apache.org/docs/2.4/en/mod/core.html#documentroot).
-* `/var/lib/mysql`, where MariaDB data files are stores.
+* `/var/lib/mysql`, where MySQL data files are stores.
 
 
 The user and group owner id for the DocumentRoot directory `/var/www/html` are both 33 (`uid=33(www-data) gid=33(www-data) groups=33(www-data)`).
@@ -137,19 +135,19 @@ Use cases
 #### Create a temporary container for testing purposes:
 
 ```
-	docker run -i -t --rm fauria/lamp bash
+	docker run -i -t --rm wcramos/lamp bash
 ```
 
 #### Create a temporary container to debug a web app:
 
 ```
-	docker run --rm -p 8080:80 -e LOG_STDOUT=true -e LOG_STDERR=true -e LOG_LEVEL=debug -v /my/data/directory:/var/www/html fauria/lamp
+	docker run --rm -p 8080:80 -e LOG_STDOUT=true -e LOG_STDERR=true -e LOG_LEVEL=debug -v /my/data/directory:/var/www/html wcramos/lamp
 ```
 
 #### Create a container linking to another [MySQL container](https://registry.hub.docker.com/_/mysql/):
 
 ```
-	docker run -d --link my-mysql-container:mysql -p 8080:80 -v /my/data/directory:/var/www/html -v /my/logs/directory:/var/log/httpd --name my-lamp-container fauria/lamp
+	docker run -d --link my-mysql-container:mysql -p 8080:80 -v /my/data/directory:/var/www/html -v /my/logs/directory:/var/log/httpd --name my-lamp-container wcramos/lamp
 ```
 
 #### Get inside a running container and open a MariaDB console:
