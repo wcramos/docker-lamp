@@ -156,9 +156,11 @@ Use cases
 	docker exec -i -t my-lamp-container bash
 	mysql -u root
 ```
-#### Production instalation steps:
+#### Example of a Production Installation steps:
 
 ```
+cd base-dir-of-docker-volumes-used-for-this-container
+
 mkdir www
 mkdir log
 mkdir log/apache2
