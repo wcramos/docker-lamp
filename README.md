@@ -156,3 +156,24 @@ Use cases
 	docker exec -i -t my-lamp-container bash
 	mysql -u root
 ```
+#### Production instalation steps:
+
+```
+mkdir www
+mkdir log
+mkdir log/apache2
+mkdir log/mysql
+mkdir mysql
+
+docker run -d -p 80:80 -p 443:443 -v /Users/wagramos/Documents/docker/teste/www:/var/www/html -v /Users/wagramos/Documents/docker/teste/log/apache2:/var/log/apache2 -v /Users/wagramos/Documents/docker/teste/log/mysql:/var/log/mysql -v /Users/wagramos/Documents/docker/teste/mysql:/var/lib/mysql --name lamp1-container wcramos/lamp
+
+# IMPORTANT: Next steps only for the first run if wanted to create an EMPTY MySQL database. If you already moved to mysql  folder the mysql database files do not execute next steps because it will erase your database.
+
+docker exec -i -t lamp1-container bash
+rm /var/lib/mysql/*
+mysqld --initialize-insecure
+exit
+
+docker restart -t 30 lamp1-container
+
+```
