@@ -179,3 +179,4 @@ exit
 docker restart -t 30 lamp1-container
 
 ```
+After restart the container is ready to use. The mysql is running internally on container, user root, no password.
