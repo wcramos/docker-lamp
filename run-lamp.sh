@@ -26,7 +26,7 @@ if [ $LOG_LEVEL != 'warn' ]; then
 fi
 
 # enable php short tags:
-/bin/sed -i "s/short_open_tag\ \=\ Off/short_open_tag\ \=\ On/g" /etc/php/7.0/apache2/php.ini
+/bin/sed -i "s/short_open_tag\ \=\ Off/short_open_tag\ \=\ On/g" /etc/php/7.2/apache2/php.ini
 
 # stdout server info:
 if [ ! $LOG_STDOUT ]; then
@@ -34,8 +34,8 @@ cat << EOB
     
     **********************************************
     *                                            *
-    *    Docker image: fauria/lamp               *
-    *    https://github.com/fauria/docker-lamp   *
+    *    Docker image: wcramos/lamp              *
+    *    https://github.com/wcramos/docker-lamp  *
     *                                            *
     **********************************************
 
@@ -53,17 +53,15 @@ else
 fi
 
 # Set PHP timezone
-/bin/sed -i "s/\;date\.timezone\ \=/date\.timezone\ \=\ ${DATE_TIMEZONE}/" /etc/php/7.0/apache2/php.ini
+/bin/sed -i "s#\;date\.timezone\ \=#date\.timezone\ \=\ ${DATE_TIMEZONE}#" /etc/php/7.2/apache2/php.ini
 
-# Run Postfix
-/usr/sbin/postfix start
-
-# Run MariaDB
-/usr/bin/mysqld_safe --timezone=${DATE_TIMEZONE}&
+# Run MySQL
+# nohup /usr/bin/mysqld_safe --timezone=${DATE_TIMEZONE} > /dev/null 2>&1 &
+service mysql start
 
 # Run Apache:
 if [ $LOG_LEVEL == 'debug' ]; then
     /usr/sbin/apachectl -DFOREGROUND -k start -e debug
 else
-    &>/dev/null /usr/sbin/apachectl -DFOREGROUND -k start
+    /usr/sbin/apachectl -DFOREGROUND -k start
 fi
