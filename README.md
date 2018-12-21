@@ -4,8 +4,6 @@ wcramos/lamp
 ![docker_logo](https://raw.githubusercontent.com/wcramos/docker-lamp/master/docker_139x115.png)
 
 [![Docker Pulls](https://img.shields.io/docker/pulls/wcramos/lamp.svg?style=plastic)](https://hub.docker.com/r/wcramos/lamp/)
-[![Docker Build Status](https://img.shields.io/docker/build/wcramos/lamp.svg?style=plastic)](https://hub.docker.com/r/wcramos/lamp/builds/)
-[![](https://images.microbadger.com/badges/image/wcramos/lamp.svg)](https://microbadger.com/images/wcramos/lamp "wcramos/lamp")
 
 This Docker container implements a last generation LAMP stack with a set of popular PHP modules. Includes support for [Composer](https://getcomposer.org/), [Yarn](https://yarnpkg.com/en/) and [npm](https://www.npmjs.com/) package managers.
 
